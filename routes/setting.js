@@ -15,7 +15,7 @@ set_r.get('/settings/profile', function(req, res, next) {
 		email: req.session.user.email
 	},function (err,user) {
 		if (err) {
-			next(err)
+			return next(err)
 		}
 		res.render('./settings/profile.html',{
 	    	user: user,
@@ -38,10 +38,6 @@ set_r.post('/settings/profile', function(req, res, next) {
 			user[key] = body[key]
 		}
 		req.session.user = user
-	 //    res.render('./settings/profile.html',{
-	 //    	user: user,
-	 //    	path: req.path
-	 //    })
 	    res.status(200).jsonp({
 			err_code: 0,
 			message: '保存成功'
@@ -99,9 +95,23 @@ set_r.post('/settings/admin', function(req, res, next) {
 		})
 	})
 })
+
 // 注销账号
-set_r.post('/settings/cancel', function(req, res, next) {
-    
+set_r.get('/settings/delete', function(req, res, next) {
+    User.findOneAndDelete({
+    	email: req.session.user.email
+    },function (err,user) {
+    	if (err) {
+    		return next(err)
+    	}
+    	// 删除路由
+    	delete req.session.user
+
+    	res.status(200).jsonp({
+			err_code: 0,
+			message: '账号已注销'
+		})
+    })
 })
 
 
