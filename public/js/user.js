@@ -12,7 +12,8 @@ $('#login_form').on('submit', function(e) {
             var err_code = data.err_code
             if (err_code === 0) {
                 // 服务端重定向针对异步请求无效
-                // window.alert(data.message)
+                console.log(data)
+                window.alert(data.message)
                 window.location.href = '/'
             } else {
                 window.alert(data.message)
@@ -33,8 +34,9 @@ $('#register_form').on('submit', function(e) {
         success: function(data) {
             var err_code = data.err_code
             if (err_code === 0) {
-                window.alert(data.message)
                 // 服务端重定向针对异步请求无效
+                console.log(data)
+                window.alert(data.message)
                 window.location.href = '/'
             } else {
                 window.alert(data.message)
@@ -45,26 +47,26 @@ $('#register_form').on('submit', function(e) {
 
 
 // 修改基本信息
-// $('#form-profile').on('submit', function(e) {
-//     e.preventDefault()
-//     let formData = $(this).serialize()
-//     $.ajax({
-//         url: '/settings/profile',
-//         type: 'post',
-//         data: formData,
-//         dataType: 'jsonp',
-//         success: function(data) {
-//             console.log(data)
-//             let err_code = data.err_code
-//             if (err_code === 0) {
-//               window.alert(data.message)
-//               window.location.href = '/'
-//             } else {
-//               window.alert(data.message)
-//             }
-//         }
-//     })
-// })
+$('#form-profile').on('submit', function(e) {
+    e.preventDefault()
+    let formData = $(this).serialize()
+    $.ajax({
+        url: '/settings/profile',
+        type: 'post',
+        data: formData,
+        dataType: 'jsonp',
+        success: function(data) {
+            let err_code = data.err_code
+            if (err_code === 0) {
+              console.log(data)
+              window.alert(data.message)
+              window.location.href = '/settings/profile'
+            } else {
+              window.alert(data.message)
+            }
+        }
+    })
+})
 
 // 修改头像并上传
 function previewFile() {
@@ -80,3 +82,26 @@ function previewFile() {
         reader.readAsDataURL(file)
     }
 }
+
+
+// 修改密码
+$('#form-admin"').on('submit', function(e) {
+    e.preventDefault()
+    var formData = $(this).serialize()
+    $.ajax({
+        url: '/settings/admin',
+        type: 'post',
+        data: formData,
+        dataType: 'jsonp',
+        success: function(data) {
+            let err_code = data.err_code
+            if (err_code === 0) {
+              console.log(data)
+              window.alert(data.message)
+              window.location.href = '/settings/admin'
+            } else {
+              window.alert(data.message)
+            }
+        }
+    })
+})

@@ -34,8 +34,7 @@ app.engine('html', require('express-art-template'))
 app.set('views', path.join(__dirname, './views/'))
 
 // 加载所有路由
-app.use('/',[topic_r,session_r])
-app.use('/settings',set_r)
+app.use(session_r,set_r,topic_r)
 
 // 404页面
 app.use(function (req,res) {

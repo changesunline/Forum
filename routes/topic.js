@@ -4,11 +4,21 @@ const path = require('path')
 const express = require('express')
 const topic_r = express.Router()
 
-// topic_r.get('/admin', function (req, res) {
-//   res.render('settings/admin.html')
-// })
+topic_r.get('/topics/new', function (req, res) {
+  res.render('topic/new.html',{
+  	user: req.session.user
+  })
+})
 
-// topic_r.get('/profile', function (req, res) {
-//   res.render('settings/profile.html')
-// })
+topic_r.get('/topics/show', function (req, res) {
+  res.render('topic/show.html',{
+  	user: req.session.user
+  })
+})
+
+topic_r.get('/topics/edit', function (req, res) {
+  res.render('topic/edit.html',{
+  	user: req.session.user
+  })
+})
 module.exports = topic_r
